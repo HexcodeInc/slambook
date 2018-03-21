@@ -146,7 +146,7 @@ app.post('/dashboard', (req, res) => {
 
     connection.connect();
     connection.query("SELECT `who`,`relatedby` FROM `usersans` WHERE `userid`=? GROUP BY `who`", [req.body.userid], function (err, emp_rows, fields) {
-        if (err) { console.log(err) };
+        if (err) { console.log(err); throw err; };
         var len = emp_rows.length;
         console.log(len);
         if (len != 0) {
