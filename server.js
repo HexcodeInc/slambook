@@ -357,6 +357,46 @@ app.post('/username', (req, res) => {
         connection.end();
 });
 
+app.get('/deletAll', (req, res) => {
+    var mysql = require('mysql');
+    var connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        pass: '',
+        database: 'slambook'
+    });
+    connection.connect();
+    connection.query("DELETE FROM `questions` WHERE 1", function (err, emp_rows, fields) {});
+    connection.query("DELETE FROM `userquestions` WHERE 1", function (err, emp_rows, fields) {});
+    connection.query("DELETE FROM `users` WHERE 1", function (err, emp_rows, fields) {});
+    connection.query("DELETE FROM `usersans` WHERE 1", function (err, emp_rows, fields) {});
+    connection.end();
+});
+
+
+app.post('/addQuestions', (req, res) => {
+    var sql = "INSERT INTO `questions` (`qid`, `questions`, `private`) VALUES (NULL, ?, '')"
+        var mysql = require('mysql');
+        var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            pass: '',
+            database: 'slambook'
+        });
+        var store;
+        connection.connect();
+        connection.query(sql, [ req.body.question], function (err, rows, fields) {
+            if(err){throw err}
+            if (!err) {
+                store = JSON.stringify({ status: 'success', code: 200 });
+            }
+               console.log(store);
+                res.setHeader("Content-Type", "text/json");
+                res.setHeader("Access-Control-Allow-Origin", "*");
+                res.end(store)
+        });
+        connection.end();
+});
 
 var server = app.listen(8081, function () {
     var host = server.address().address
