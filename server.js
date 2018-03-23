@@ -334,6 +334,30 @@ app.post('/addanswers', (req, res) => {
 });
 
 
+app.post('/username', (req, res) => {
+    var sql = "SELECT `Name` FROM `users` WHERE `userid`=?";
+        var mysql = require('mysql');
+        var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            pass: '',
+            database: 'slambook'
+        });
+        var store;
+        connection.connect();
+        connection.query(sql, [ req.body.userid], function (err, rows, fields) {
+            if (!err) {
+                store = JSON.stringify({ name:rows[0].Name, status: 'success', code: 200 });
+            }
+               console.log(store);
+                res.setHeader("Content-Type", "text/json");
+                res.setHeader("Access-Control-Allow-Origin", "*");
+                res.end(store)
+        });
+        connection.end();
+});
+
+
 var server = app.listen(8081, function () {
     var host = server.address().address
     var port = server.address().port
