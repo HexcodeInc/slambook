@@ -69,7 +69,7 @@ app.get('/questions', (req, res) => {
     var store = '[';
     var mysql = require('mysql');
     var connection = mysql.createConnection({
-        host: '54.201.209.210',
+        host: '127.0.0.1',
         user: 'root',
         password: 'hexcode',
         database: 'slambook'
