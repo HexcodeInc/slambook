@@ -15,9 +15,9 @@ app.use(function (req, res, next) {
 app.post('/signup', (req, res) => {
     var mysql = require('mysql');
     var connection = mysql.createConnection({
-        host: 'localhost',
+        host: '127.0.0.1',
         user: 'root',
-        pass: '',
+        password: 'hexcode',
         database: 'slambook'
     });
     connection.connect();
@@ -39,9 +39,9 @@ app.post('/signup', (req, res) => {
 app.post('/checklogin', (req, res) => {
     var mysql = require('mysql');
     var connection = mysql.createConnection({
-        host: 'localhost',
+        host: '127.0.0.1',
         user: 'root',
-        pass: '',
+        password: 'hexcode',
         database: 'slambook'
     });
     connection.connect();
@@ -49,7 +49,7 @@ app.post('/checklogin', (req, res) => {
     connection.query(sql, [req.body.userid, req.body.password], function (err, rows, fields) {
         if (err) {
             // store=JSON.stringify({status:'failed',code:300});
-            throw err;
+           // throw err;
         } else {
             if (rows.length > 0) {
                 store = JSON.stringify({ status: 'success', code: 200 });
@@ -69,9 +69,9 @@ app.get('/questions', (req, res) => {
     var store = '[';
     var mysql = require('mysql');
     var connection = mysql.createConnection({
-        host: 'localhost',
+        host: '54.201.209.210',
         user: 'root',
-        pass: '',
+        password: 'hexcode',
         database: 'slambook'
     });
 
@@ -101,9 +101,9 @@ app.get('/questions', (req, res) => {
 app.post('/viewsingle', (req, res) => {
     var mysql = require('mysql');
     var connection = mysql.createConnection({
-        host: 'localhost',
+        host: '127.0.0.1',
         user: 'root',
-        pass: '',
+        password: 'hexcode',
         database: 'slambook'
     });
     connection.query("SELECT `questions`.`qid`,`questions`.`questions`,`usersans`.`ans` FROM `questions`,`usersans` WHERE `usersans`.`userid`=? and `usersans`.`who`=? and `usersans`.`qid`=`questions`.`qid`", [req.body.userid, req.body.who], function (err, emp_rows, fields) {
@@ -138,15 +138,15 @@ app.post('/viewsingle', (req, res) => {
 app.post('/dashboard', (req, res) => {
     var mysql = require('mysql');
     var connection = mysql.createConnection({
-        host: 'localhost',
+        host: '127.0.0.1',
         user: 'root',
-        pass: '',
+        password: 'hexcode',
         database: 'slambook'
     });
 
     connection.connect();
     connection.query("SELECT `who`,`relatedby` FROM `usersans` WHERE `userid`=? GROUP BY `who`", [req.body.userid], function (err, emp_rows, fields) {
-        if (err) { console.log(err); throw err; };
+        if (err) { console.log(err); };
         var len = emp_rows.length;
         console.log(len);
         if (len != 0) {
@@ -180,9 +180,9 @@ app.post('/customquestion', (req, res) => {
     var InsertNewQuestion = function(data,callback) {
         var mysql = require('mysql');
         var connection = mysql.createConnection({
-            host: 'localhost',
+            host: '127.0.0.1',
             user: 'root',
-            pass: '',
+            password: 'hexcode',
             database: 'slambook'
         });
         connection.connect();
@@ -199,9 +199,9 @@ app.post('/customquestion', (req, res) => {
     var InsertFirst = function(data,qid,callback) {
         var mysql = require('mysql');
         var connection = mysql.createConnection({
-            host: 'localhost',
+            host: '127.0.0.1',
             user: 'root',
-            pass: '',
+            password: 'hexcode',
             database: 'slambook'
         });
         connection.connect();
@@ -217,9 +217,9 @@ app.post('/customquestion', (req, res) => {
       var InsertUserQus = function(data){
         var mysql = require('mysql');
         var connection = mysql.createConnection({
-            host: 'localhost',
+            host: '127.0.0.1',
             user: 'root',
-            pass: '',
+            password: 'hexcode',
             database: 'slambook'
         });
         connection.connect();
@@ -245,9 +245,9 @@ app.post('/questionadd', (req, res) => {
     console.log(req.body);
     var mysql = require('mysql');
     var connection = mysql.createConnection({
-        host: 'localhost',
+        host: '127.0.0.1',
         user: 'root',
-        pass: '',
+        password: 'hexcode',
         database: 'slambook'
     });
     connection.connect();
@@ -269,9 +269,9 @@ app.post('/questionadd', (req, res) => {
 app.post('/getquestion', (req, res) => {
     var mysql = require('mysql');
     var connection = mysql.createConnection({
-        host: 'localhost',
+        host: '127.0.0.1',
         user: 'root',
-        pass: '',
+        password: 'hexcode',
         database: 'slambook'
     });
     connection.query("SELECT `questions`.`qid`,`questions`.`questions` FROM `userquestions`,`questions` WHERE `userquestions`.`userid`=? and `userquestions`.`qid`=`questions`.`qid`", [req.body.userid], function (err, emp_rows, fields) {
@@ -311,9 +311,9 @@ app.post('/addanswers', (req, res) => {
     for (let i = 0; i < req.body.questions.length; i++) {
         var mysql = require('mysql');
         var connection = mysql.createConnection({
-            host: 'localhost',
+            host: '127.0.0.1',
             user: 'root',
-            pass: '',
+            password: 'hexcode',
             database: 'slambook'
         });
         connection.connect();
@@ -333,14 +333,13 @@ app.post('/addanswers', (req, res) => {
     }
 });
 
-
 app.post('/username', (req, res) => {
     var sql = "SELECT `Name` FROM `users` WHERE `userid`=?";
         var mysql = require('mysql');
         var connection = mysql.createConnection({
-            host: 'localhost',
+            host: '127.0.0.1',
             user: 'root',
-            pass: '',
+            password: 'hexcode',
             database: 'slambook'
         });
         var store;
@@ -357,14 +356,14 @@ app.post('/username', (req, res) => {
         connection.end();
 });
 
-app.get('/deletAll', (req, res) => {
+app.get('/deleteAll', (req, res) => {
     var mysql = require('mysql');
-    var connection = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        pass: '',
-        database: 'slambook'
-    });
+	var connection = mysql.createConnection({
+            host: '127.0.0.1',
+            user: 'root',
+            password: 'hexcode',
+            database: 'slambook'
+        });
     connection.connect();
     connection.query("DELETE FROM `questions` WHERE 1", function (err, emp_rows, fields) {});
     connection.query("DELETE FROM `userquestions` WHERE 1", function (err, emp_rows, fields) {});
@@ -377,10 +376,10 @@ app.get('/deletAll', (req, res) => {
 app.post('/addQuestions', (req, res) => {
     var sql = "INSERT INTO `questions` (`qid`, `questions`, `private`) VALUES (NULL, ?, '')"
         var mysql = require('mysql');
-        var connection = mysql.createConnection({
-            host: 'localhost',
+	var connection = mysql.createConnection({
+            host: '127.0.0.1',
             user: 'root',
-            pass: '',
+            password: 'hexcode',
             database: 'slambook'
         });
         var store;
