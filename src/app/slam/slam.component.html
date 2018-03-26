@@ -1,0 +1,39 @@
+<div class="container">
+  <div *ngIf="!noData">
+      <div class="alert alert-success">
+        {{userName}} requested your memories!
+      </div>
+    <form [formGroup]="SForm" (ngSubmit)="Answer(SForm.value)" class="well form-horizontal">
+      <p>Who are you?<span style="color:red">*</span></p>
+        <input formControlName="who" placeholder="Name" class="form-control" type="text">
+        <p>How you related to me?</p>
+        <select formControlName="relatedby" placeholder="Relacted By" class="form-control">
+            <option value="friend">Friend</option>
+            <option value="relative">Relactive</option>
+            <option value="colleague">Colleague</option>
+            <option value="other">other</option>
+          </select>
+      <div formArrayName="Answers">
+        <div *ngFor="let question of questions;let i=index;">
+          <p>{{question.questions}}</p>
+          <div [formGroupName]="i">
+            <textarea formControlName="ans" class="form-control" rows="3" id="comment"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="centerAlign">
+        <br/>
+        <div *ngIf="success" class="alert alert-success">
+          <strong>Thank you!</strong><span style="cursor:pointer" routerLink="../../signup">&nbsp;&nbsp;Click hear to create your own slam</span>.
+        </div>
+        <button *ngIf="!SForm.invalid" type="submit" class="btn btn-primary">Submit Answers</button>
+        <button routerLink="../../signup" type="submit" class="btn btn-primary">New User? Signup</button>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="noData">
+    <div class="alert alert-danger">
+        <p><strong> No Questions Found!</strong> (Ask your friend to add question and use this URL!).</p>
+      </div>
+  </div>
+  <ngx-loading [show]="loading"></ngx-loading>

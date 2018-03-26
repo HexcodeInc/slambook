@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="alert alert-success">
+    <button style="float:right;z-index:999" mat-button [matMenuTriggerFor]="menu">
+      <b>Menu</b>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button (click)="logout()" mat-menu-item>Logout</button>
+      <button routerLink="../questions" mat-menu-item>Add questions</button>
+    </mat-menu>
+    <strong>Your URL!</strong>
+    <div class="input-group">
+      <input type="text" class="form-control" [(ngModel)]="text" placeholder="content will be copy after click the copy button">
+      <span class="input-group-btn">
+        <button (click)="openSnackBar()" class="btn btn-default" [class.btn-success]= "isCopied1" type="button" ngxClipboard [cbContent]="text" (cbOnSuccess)="isCopied1 = true">copy</button>
+      </span>
+    </div>
+    <p>Copy the above URL and share it with your Friends.</p>
+  </div>
+  <div *ngIf="!noData">
+    <div *ngFor="let user of userRes;let i=index">
+      <button style="float:right;z-index:999" (click)="viewSingle(i)" mat-raised-button color="primary">View</button>
+      <mat-card>
+        <p style="color:	rgb(3, 5, 3)">{{user.who}}
+          <span style="font-size:10px">(Your {{user.relatedby}}!)</span>
+        </p>
+      </mat-card>
+    </div>
+  </div>
+  <div *ngIf="noData">
+      <div class="alert alert-danger">
+          <p><strong> No Answers yet!</strong> (Add Questions in you account and share the above URL to your Friends).</p>
+        </div>
+  </div>
+</div>
+
+<ngx-loading [show]="loading"></ngx-loading>

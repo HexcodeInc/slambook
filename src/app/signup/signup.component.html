@@ -1,0 +1,70 @@
+<div class="container">
+
+  <div class="limiter">
+    <div class="container-login100">
+      <div class="wrap-login100">
+
+        <div class="login100-pic js-tilt" data-tilt>
+          <img src="assets/img-01.png" alt="IMG">
+        </div>
+
+        <form [formGroup]="SForm" (ngSubmit)="Signup(SForm.value)" class="login100-form validate-form">
+          <span class="login100-form-title">
+            Member SignUp
+          </span>
+
+          <div class="wrap-input100 validate-input">
+            <input class="input100" formControlName="name" placeholder="Your Name">
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-user" aria-hidden="true"></i>
+            </span>
+          </div>
+
+          <div class="wrap-input100 validate-input" data-validate="Password is required">
+            <input class="input100" type="text" formControlName="userid" placeholder="Your User Id">
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </span>
+          </div>
+
+          <div class="wrap-input100 validate-input" data-validate="Password is required">
+            <input class="input100" type="password" formControlName="password" placeholder="Your Password">
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </span>
+          </div>
+
+
+          <div class="wrap-input100 validate-input" data-validate="Password is required">
+            <input class="input100" type="text" formControlName="email" placeholder="Your Mail Id">
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </span>
+          </div>
+
+          <div *ngIf="error" class="alert alert-danger">
+            <strong>Error!</strong> Check your
+            <strong>UserId</strong> It may be used by Someone else, please change it.
+          </div>
+          <div class="container-login100-form-btn">
+            <button [disabled]="SForm.invalid" type="submit" class="login100-form-btn">
+              Signup
+            </button>
+          </div>
+
+          <div class="text-center p-t-136">
+            <a class="txt2" routerLink="../login">
+              Login,If you already have an account!
+              <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-loading [show]="loading"></ngx-loading>

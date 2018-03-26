@@ -1,0 +1,12 @@
+<button style="float:right;z-index:999" routerLink="../profile" mat-button color="primary">Back to Profile</button><br/><br/>
+<mat-card style="text-align:center;margin-top:20%">
+  <p>Add your Custom Questions</p>
+<form [formGroup]="SForm" (ngSubmit)="customquestion(SForm.value)">
+    <div class="row">
+        <div class="col-sm-11"> <input formControlName="question" placeholder="Your Custom Question" class="form-control" type="text"></div>
+        <div class="col-sm-1"> 
+            <button type="submit" [disabled]="SForm.invalid"  mat-raised-button  color="primary">Submit</button>
+         </div>
+      </div>
+</form>
+</mat-card>

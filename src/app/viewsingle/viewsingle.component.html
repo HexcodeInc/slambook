@@ -1,0 +1,24 @@
+<div class="container">
+    <button style="float:right;z-index:999" (click)="backProfile()" mat-button color="primary">Back to Profile</button><br/><br/>
+  <div *ngIf="viewAns.length>0">
+    <div *ngFor="let user of viewAns;let i=index">
+        <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              <p>{{user.questions}}</p>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+      
+        <p>&nbsp;&nbsp;<span style="color:#F08080">{{who}}</span>&nbsp;:&nbsp;{{user.ans}}.</p>
+      
+      </mat-expansion-panel>
+      <!-- <mat-card>
+        <p style="color:	#696969">You:&nbsp;</p>
+        <p style="color:	#00FF00">&nbsp;&nbsp;{{who}}&nbsp;:&nbsp;{{user.ans}}</p>
+      </mat-card> -->
+    </div>
+    <div *ngIf="viewAns.length==0">
+      No Data Found!
+    </div>
+  </div>
+  <ngx-loading [show]="loading"></ngx-loading>

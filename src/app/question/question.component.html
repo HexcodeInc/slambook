@@ -1,0 +1,30 @@
+<div class="container">
+  <div *ngIf="!noData">
+    <div class="alert alert-success">
+      <p>Add your questions here!</p>
+      <button style="float:right" type="button" routerLink="../profile" mat-raised-button color="primary">after adding questions Click here!</button>
+    </div>
+    <br/>
+    <form [formGroup]="SForm" (ngSubmit)="customquestion(SForm.value)">
+      <div class="row">
+        <div class="col-sm-11">
+          <input formControlName="question" placeholder="Your Custom Question" class="form-control" type="text"/>
+        </div>
+        <div class="col-sm-1">
+          <button type="submit" [disabled]="SForm.invalid" mat-raised-button color="primary">Submit</button>
+        </div>
+      </div>
+    </form>
+    <br/>
+    <div *ngFor="let question of questions;let i=index;">
+      <p>{{question.questions}}&nbsp;&nbsp;
+          <button style="float:right;z-index:999" (click)="addQuestions(i)" mat-raised-button color="primary">Add</button>      </p>
+      <br/>
+          <hr/>
+    </div>
+  </div>
+  <div *ngIf="noData">
+    No Questions Found!
+  </div>
+</div>
+<ngx-loading [show]="loading"></ngx-loading>
