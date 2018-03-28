@@ -12,6 +12,36 @@ app.use(function (req, res, next) {
 });
 
 
+app.post('/deletQuestions', (req, res) => {
+    var sql = "DELETE FROM `userquestions` WHERE `userid`=? and `qid`=?"
+    var mysql = require('mysql');
+    var connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        pass: '',
+        database: 'slambook'
+    });
+    var store;
+    connection.connect();
+    store = JSON.stringify({ status: 'success', code: 200 });
+    connection.query(sql, [req.body.userid, req.body.qid], function (err, rows, fields) {
+        if (err) {
+            store = JSON.stringify({ status: 'error', code: 400 });
+        }
+    });
+    sql="DELETE FROM `questions` WHERE `qid`=? and `private`='true'";
+    connection.query(sql, [req.body.qid], function (err, rows, fields) {
+        if (err) {
+            store = JSON.stringify({ status: 'error', code: 400 });
+        }
+    });
+    console.log(store);
+    res.setHeader("Content-Type", "text/json");
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.end(store)
+    connection.end();
+});
+
 app.post('/signup', (req, res) => {
     var mysql = require('mysql');
     var connection = mysql.createConnection({
